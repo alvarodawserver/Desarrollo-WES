@@ -26,7 +26,7 @@ function calcular_resultado(string $op1,string $op2, string $oper){
  * @param string $par
  * @return string|null
  */
-function obtener_get($par){ 
+function obtener_get(string $par){ 
     return isset($_GET[$par]) ? trim($_GET[$par]) : null; 
 }
 /**
@@ -35,7 +35,7 @@ function obtener_get($par){
  * @param mixed $error
  * @return void
  */
-function validar_op1($op1,&$error){
+function validar_op1(string $op1,array &$error){
     if(empty($op1)){
         $error['op1'] = 'El primer operando es obligatorio.';
     }else if(!is_numeric($op1)){    
@@ -48,7 +48,7 @@ function validar_op1($op1,&$error){
  * @param mixed $error
  * @return void
  */
-function validar_op2($op2,&$error){
+function validar_op2(string $op2,array &$error){
     if(empty($op2)){
         $error['op2'] = 'El segundo operando es obligatorio.';
     }else if(!is_numeric($op2)){    
@@ -62,7 +62,7 @@ function validar_op2($op2,&$error){
  * @param mixed $error
  * @return void
  */
-function validar_oper($oper,&$error){
+function validar_oper(string $oper,array &$error){
     if(empty($oper)){
         $error['oper'] = 'La operación es obligatoria.';
     }else if(!key_exists($oper,OPS)){    
@@ -75,9 +75,9 @@ function validar_oper($oper,&$error){
  * @param mixed $error
  * @return void
  */
-function mostrar_errores($error){ 
-    foreach($error as $elem => $mensaje){
-        echo "<h3>Error: $mensaje </h3>";
+function mostrar_errores(array $error){ 
+    foreach($error as $elem => $mensaje){ ?>
+        <h3>Error: <?= $mensaje ?></h3><?php
     }
 }
 
@@ -88,7 +88,7 @@ function mostrar_errores($error){
  * @param mixed $oper
  * @return void
  */
-function dibujar_formulario($op1,$op2,$oper){
+function dibujar_formulario(string $op1,string $op2,string $oper){
     ?>
     <form action="" method="get">  <!--Si se deja el action en vacío se entiende que el server se llama a sí mismo -->
         <label for="op1">Numero1: </label>
@@ -114,7 +114,7 @@ function dibujar_formulario($op1,$op2,$oper){
 <?php
 }
 
-function selected($oper,$v){
+function selected(string $oper,string $v){
     return $oper == $v ? 'selected':'';
 }
 
