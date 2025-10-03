@@ -1,5 +1,5 @@
 <?php
-const OPS = ['+','-','/','*'];
+const OPS = ['+' => 'Suma','-'=> 'Resta','/'=> 'División','*'=> 'Multiplicación'];
 $error = [];
 
 /**
@@ -50,7 +50,7 @@ function validar_op2($op2,&$error){
 function validar_oper($oper,&$error){
     if(empty($oper)){
         $error['oper'] = 'La operación es obligatoria.';
-    }else if(!in_array($oper,OPS)){    
+    }else if(!key_exists($oper,OPS)){    
         $error['oper'] = 'La operación no existe.';
     }
 }
@@ -60,6 +60,38 @@ function mostrar_errores($error){
     foreach($error as $elem => $mensaje){
         echo "<h3>Error: $mensaje </h3>";
     }
+}
+
+function dibujar_formulario($op1,$op2,$oper){
+    ?>
+    <form action="" method="get">  <!--Si se deja el action en vacío se entiende que el server se llama a sí mismo -->
+        <label for="op1">Numero1: </label>
+        <input  type="text"  name="op1" id="op1" value="<?= $op1 ?>">
+        <br>
+
+        <label for="op2" method="get">Numero2: </label>
+        <input type="text" name="op2" id="op2" value= "<?= $op2 ?>">
+        <br>
+
+        <label for="oper" method="get">Operacion: </label>
+        <select name="oper" id="oper">
+            <?php foreach(OPS as $clave => $valor): ?>
+                <option value="<?=$clave?>"<?= selected($oper,$clave)?>><?=$valor?> </option>
+            <?php endforeach ?>
+        </select>
+        <br>
+
+        <button type="submit">Calcular</button>
+    </form>
+
+
+<?php
+}
+
+
+
+function selected($oper,$v){
+    return $oper == $v ? 'selected':'';
 }
 
 function mostrar_resultado($op1,$op2,$oper,$result){ ?>
