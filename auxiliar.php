@@ -5,11 +5,11 @@ $error = [];
 /**
  * Calcula el resultado de la operación  definida en $oper 
  * sobre los operandos $op1 y $op2
- * @param mixed $op1
- * @param mixed $op2
- * @param mixed $oper
+ * @param string $op1
+ * @param string $op2
+ * @param string $oper
  */
-function calcular_resultado($op1,$op2,$oper){
+function calcular_resultado(string $op1,string $op2, string $oper){
     
     $result = "";
     switch ($oper) {
@@ -23,13 +23,18 @@ function calcular_resultado($op1,$op2,$oper){
 /**
  * Obtiene los datos de $_GET.
  * Devuelve null si el parámetro no existe.
- * @param mixed $par
+ * @param string $par
  * @return string|null
  */
 function obtener_get($par){ 
     return isset($_GET[$par]) ? trim($_GET[$par]) : null; 
 }
-
+/**
+ * Valida el primer operador
+ * @param mixed $op1
+ * @param mixed $error
+ * @return void
+ */
 function validar_op1($op1,&$error){
     if(empty($op1)){
         $error['op1'] = 'El primer operando es obligatorio.';
@@ -37,7 +42,12 @@ function validar_op1($op1,&$error){
         $error['op1'] = 'El primer operando no es número válido.';
     }
 }
-
+/**
+ * Valida el segundo operador
+ * @param mixed $op2
+ * @param mixed $error
+ * @return void
+ */
 function validar_op2($op2,&$error){
     if(empty($op2)){
         $error['op2'] = 'El segundo operando es obligatorio.';
@@ -46,7 +56,12 @@ function validar_op2($op2,&$error){
     }
 }
 
-
+/**
+ * Valida el operadoor
+ * @param mixed $oper
+ * @param mixed $error
+ * @return void
+ */
 function validar_oper($oper,&$error){
     if(empty($oper)){
         $error['oper'] = 'La operación es obligatoria.';
@@ -55,13 +70,24 @@ function validar_oper($oper,&$error){
     }
 }
 
-
+/**
+ * Muestra los errores 
+ * @param mixed $error
+ * @return void
+ */
 function mostrar_errores($error){ 
     foreach($error as $elem => $mensaje){
         echo "<h3>Error: $mensaje </h3>";
     }
 }
 
+/**
+ * Dibuja el formulario
+ * @param mixed $op1
+ * @param mixed $op2
+ * @param mixed $oper
+ * @return void
+ */
 function dibujar_formulario($op1,$op2,$oper){
     ?>
     <form action="" method="get">  <!--Si se deja el action en vacío se entiende que el server se llama a sí mismo -->
@@ -88,12 +114,10 @@ function dibujar_formulario($op1,$op2,$oper){
 <?php
 }
 
-
-
 function selected($oper,$v){
     return $oper == $v ? 'selected':'';
 }
 
-function mostrar_resultado($op1,$op2,$oper,$result){ ?>
+function mostrar_resultado(string $op1,string $op2, string $oper,int|float $result){ ?>
     <h3>El resultado de <?= "$op1 $oper  $op2" ?> = <?= $result ?> </h3>
 <?php }

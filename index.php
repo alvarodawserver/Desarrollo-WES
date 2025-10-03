@@ -13,10 +13,8 @@
         $op2 = obtener_get('op2');
         $oper = obtener_get('oper');
     
-        
+
         dibujar_formulario($op1,$op2,$oper);
-
-
 
         if(isset($op1,$op2,$oper)){ //Si no es la primera vez que entra
             validar_op1($op1,$error);
