@@ -12,7 +12,6 @@
         $op1 = obtener_get('op1');
         $op2 = obtener_get('op2');
         $oper = obtener_get('oper');
-
         
     ?>
 
@@ -38,15 +37,33 @@
     </form>
     <?php 
         if(isset($op1,$op2,$oper)){ //Si no es la primera vez que entra
-            $result = calcular_resultado($op1,$op2,$oper);
-            if(!isset($result)){ //Si la operación es incorrecta
-                mostrar_error();
-            }else{
-                mostrar_resultado($op1,$op2,$oper,$result);
+            if(empty($op1)){
+                $error['op1'] = 'El primer operando es obligatorio.';
+            }else if(!is_numeric($op1)){    
+                $error['op1'] = 'El primer operando no es número válido.';
             }
+
+            if(empty($op2)){
+                $error['op2'] = 'El segundo operando es obligatorio.';
+            }else if(!is_numeric($op2)){    
+                $error['op2'] = 'El segundo operando no es número válido.';
+            }
+
+
+            if(empty($oper)){
+                $error['oper'] = 'La operación es obligatoria.';
+            }else if(!in_array($ooper,OPS)){
+                $error['oper'] = 'La operación no existe';
+            }
+            
+            if(empty($error)){
+                $result = calcular_resultado($op1,$op2,$oper);
+                mostrar_resultado($op1,$op2,$oper,$result);
+            }else{
+                mostrar_error($error);
+            }
+    
         }
-    
-    
     ?>
 </body>
 </html>
