@@ -7,8 +7,8 @@
 </head>
 <body>
     <?php
-        require 'auxiliar.php';
-        
+        require_once 'auxiliar.php';
+
         $op1 = obtener_get('op1');
         $op2 = obtener_get('op2');
         $oper = obtener_get('oper');
