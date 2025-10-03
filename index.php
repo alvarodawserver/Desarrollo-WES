@@ -37,30 +37,14 @@
     </form>
     <?php 
         if(isset($op1,$op2,$oper)){ //Si no es la primera vez que entra
-            if(empty($op1)){
-                $error['op1'] = 'El primer operando es obligatorio.';
-            }else if(!is_numeric($op1)){    
-                $error['op1'] = 'El primer operando no es número válido.';
-            }
-
-            if(empty($op2)){
-                $error['op2'] = 'El segundo operando es obligatorio.';
-            }else if(!is_numeric($op2)){    
-                $error['op2'] = 'El segundo operando no es número válido.';
-            }
-
-
-            if(empty($oper)){
-                $error['oper'] = 'La operación es obligatoria.';
-            }else if(!in_array($ooper,OPS)){
-                $error['oper'] = 'La operación no existe';
-            }
-            
+            validar_op1($op1,$error);
+            validar_op2($op2,$error);
+            validar_oper($oper,$error);
             if(empty($error)){
                 $result = calcular_resultado($op1,$op2,$oper);
                 mostrar_resultado($op1,$op2,$oper,$result);
             }else{
-                mostrar_error($error);
+                mostrar_errores($error);
             }
     
         }

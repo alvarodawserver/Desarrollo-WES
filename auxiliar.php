@@ -30,12 +30,33 @@ function obtener_get($par){
     return isset($_GET[$par]) ? trim($_GET[$par]) : null; 
 }
 
-function validar_datos($op1,$op2,$oper){
+function validar_op1($op1,&$error){
+    if(empty($op1)){
+        $error['op1'] = 'El primer operando es obligatorio.';
+    }else if(!is_numeric($op1)){    
+        $error['op1'] = 'El primer operando no es número válido.';
+    }
+}
 
+function validar_op2($op2,&$error){
+    if(empty($op2)){
+        $error['op2'] = 'El segundo operando es obligatorio.';
+    }else if(!is_numeric($op2)){    
+        $error['op2'] = 'El segundo operando no es número válido.';
+    }
 }
 
 
-function mostrar_error($error){ 
+function validar_oper($oper,&$error){
+    if(empty($oper)){
+        $error['oper'] = 'La operación es obligatoria.';
+    }else if(!in_array($oper,OPS)){    
+        $error['oper'] = 'La operación no existe.';
+    }
+}
+
+
+function mostrar_errores($error){ 
     foreach($error as $elem => $mensaje){
         echo "<h3>Error: $mensaje </h3>";
     }
