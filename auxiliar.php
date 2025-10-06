@@ -88,7 +88,7 @@ function mostrar_errores(array $error){
  * @param mixed $oper
  * @return void
  */
-function dibujar_formulario(string $op1,string $op2,string $oper){
+function dibujar_formulario(?string $op1,?string $op2,?string $oper){
     ?>
     <form action="" method="get">  <!--Si se deja el action en vacío se entiende que el server se llama a sí mismo -->
         <label for="op1">Numero1: </label>
@@ -114,7 +114,7 @@ function dibujar_formulario(string $op1,string $op2,string $oper){
 <?php
 }
 
-function selected(string $oper,string $v){
+function selected(?string $oper,?string $v){ //Importante poner el ? al lado del  tipo para aclarar que puede ser String | Null
     return $oper == $v ? 'selected':'';
 }
 

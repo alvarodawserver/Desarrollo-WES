@@ -1,3 +1,4 @@
+<!-- <php default(strict_types=1); ?>-->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -8,6 +9,9 @@
 <body>
     <?php
         require_once 'auxiliar.php';
+
+        //print_r($_GET);
+        //die();
 
         $op1 = obtener_get('op1');
         $op2 = obtener_get('op2');
